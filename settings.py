@@ -1,6 +1,7 @@
 # -*- coding:utf-8 -*-
 ccf_tc_base_url = r'http://www.ccf.org.cn/tc/zwmd/'  #ccf专委会基地址
 ccd_tc = ["dmtjstc","fwjs","gxnjs","gykzjsj","hlw","jsjaq","jsjfzsjytxx","jsjgcygy","jsjsj","jsjyy","jy","fbsjsycl","kelhjjsj","lljsjkx","psjs","qrsxt","rgznymssb","rjjh","rcjs","rjgc","sjk","txjg","wlysjtx","wlw","xtrj","xtjs","xxbm","xxccjs","xxxt","xnxsykshjs","zwxxjs","dsjzjwyh","swxxxzyz","xshffzyz"] #ccf专委会子地址
+# ccd_tc = ["rgznymssb"]
 useragents = [
     "Avant Browser/1.2.789rel1 (http://www.avantbrowser.com)",
     "Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/532.5 (KHTML, like Gecko) Chrome/4.0.249.0 Safari/532.5",

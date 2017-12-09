@@ -1,59 +1,57 @@
 # -*- coding: utf-8 -*-
-import requests,re,sys,pymongo
-from settings import ccf_tc_base_url,ccd_tc,useragents,mongodb_ip,mongodb_port,name_file_dir
-from random import choice
+import requests,re,sys
+from settings import ccf_tc_base_url,ccd_tc,name_file_dir
 
+from bs4 import BeautifulSoup
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-
 def get_name_from_ccf_tc():
-    """
-
-    :return:
-    """
     people = []
-    pa1 = re.compile(r'style="cursor: default;">(.+)</a>')
-    pa2 = re.compile(r'<li>\s*?<span>(.*?)</span>')
     for suffix in ccd_tc:
+        # 0.页面抓取
         content = requests.get(ccf_tc_base_url + suffix).content
-        people.extend(pa1.findall(content))
-        people.extend(pa2.findall(content))
 
-    for i in range(len(people)):
-        people[i] = people[i].replace('　','')
+        # 1.主任、秘书长、副主任
+        res = re.findall(r'>([\d]|[\D]*)</a></h3>\s+<p>([\d]|[\D]*)</p>\s+<p>([\d]|[\D]*)</p>',content.replace(r'\n',r''),re.S)
+        for i in res:
+            now = {}
+            now['name'] = i[0]
+            now['location'] = i[1]
+            now['email'] = i[2]
+            people.append(now)
 
-    print len(people)
-    for peo in people:
-        print peo
-
-def get_page_from_baike(collection,name):
-    """
-    爬取
-    :param name:
-    :return:
-    """
-
-    url = u'https://baike.baidu.com/item/' + name
-    headers = {'User-Agent':choice(useragents)}
-    resp = requests.get(url,verify = False,headers = headers)
-    # print resp.content
-    if('多义词' in resp.content or '选择浏览' in resp.content):
-        print name,'是多义词'
-    elif('您所访问的页面不存在' in resp.content):
-        print name,'百科中没有收录'
-
-    else:
-        print name,'不是多义词'
-        collection.insert({'name': name, 'page_content': resp.content})
-
-if __name__ == '__main__':
-    # get_name_from_ccf_tc()
-    conn = pymongo.MongoClient(mongodb_ip, mongodb_port)
-    db = conn.admin
-    collection = db.baike
-
-    with open(name_file_dir,'r') as f:
-        for name in f:
-            get_page_from_baike(collection,name.strip())
+        # 2.荣誉委员、常务委员、委员
+        soup = BeautifulSoup(content, "lxml")
+        tag = soup.find_all('ul', attrs={'class': 'g-ul m-list3'})
+        for i in tag:
+            for child in i.children:
+                # 一个人
+                now = {}
+                now_index = 0
+                for c in child:
+                    # 一个人的不同属性
+                    for n in c:
+                        try:
+                            if n.strip() != '':
+                                if(now_index == 0):
+                                    now['name'] = n
+                                elif(now_index == 1):
+                                    now['location'] = n
+                                elif(now_index == 2):
+                                    now_index = 0
+                                    now['email'] = n
+                                    break
+                                now_index += 1
+                        except:
+                            print '出错！！'
+                people.append(now)
+    for p in people:
+        if p.has_key('name'):
+            print p['name'].replace(' ','').replace('　','').replace('\n','').replace('\t',''),
+            if p.has_key('location'):
+                print p['location'].replace(' ','').replace('　','').replace('\n','').replace('\t',''),
+            if p.has_key('email'):
+                print p['email'].replace(' ', '').replace('　', '').replace('\n', '').replace('\t', ''),
+        print

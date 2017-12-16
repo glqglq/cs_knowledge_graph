@@ -39,4 +39,7 @@ mongodb_port = 27017
 
 cs_baike_dict = {'教授':1,'计算机':1,'讲师':1,'研究员':1,'ccf':1,'CCF':1,'IEEE':1,'云计算':1,'信息':1,'院士':1,'大学':1,'研究所':1}
 
-name_file_dir = u'C:\\Users\LuckyGong\Documents\GitHub\cs_knowledge_graph\专家名（格式化后+去重后）.txt'
+name_file_dir = u'C:\\Users\LuckyGong\Documents\GitHub\cs_knowledge_graph\data\专家名（有location）.csv'
+filtered_name_dir = u'C:\\Users\LuckyGong\Documents\Github\cs_knowledge_graph\data\专家名（初步去重后）2.csv'
+baike_dir = u'C:\\Users\LuckyGong\Documents\Github\cs_knowledge_graph\data\百科2.csv'
+baike_without_html_dir = u'C:\\Users\LuckyGong\Documents\Github\cs_knowledge_graph\data\百科（无网页内容）.csv'

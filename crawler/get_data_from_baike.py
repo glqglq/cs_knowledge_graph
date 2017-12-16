@@ -97,4 +97,7 @@ if __name__ == '__main__':
     # in_f.close()
     # out_f.close()
 
+    # 构建语料
+    in_f = open(u'C:\\Users\LuckyGong\Documents\Github\cs_knowledge_graph\data\百科.csv')
+    out_f = open(u'C:\\Users\LuckyGong\Documents\Github\cs_knowledge_graph\data\百科（无名字）.csv','w')
     pass

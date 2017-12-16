@@ -34,6 +34,8 @@ useragents = [
     "Mozilla/5.0 (Windows; U; Win98; en-US; rv:1.4) Gecko Netscape/7.1 (ax)",
 ]
 
+TOP_LEVEL_DOMAINS = [r'.com',r'.cn',r'.co',r'.edu',r'.gov',r'.net',r'.cc',r'.me',r'.org',r'.gov',r'.cc',r'.hk',r'.tv']
+
 mongodb_ip = 'localhost'
 mongodb_port = 27017
 

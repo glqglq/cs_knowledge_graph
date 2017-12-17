@@ -45,3 +45,4 @@ name_file_dir = u'C:\\Users\LuckyGong\Documents\GitHub\cs_knowledge_graph\data\�
 filtered_name_dir = u'C:\\Users\LuckyGong\Documents\Github\cs_knowledge_graph\data\专家名（初步去重后）2.csv'
 baike_dir = u'C:\\Users\LuckyGong\Documents\Github\cs_knowledge_graph\data\百科2.csv'
 baike_without_html_dir = u'C:\\Users\LuckyGong\Documents\Github\cs_knowledge_graph\data\百科（无网页内容）.csv'
+stop_word_dir = u'C:\\Users\LuckyGong\Documents\Github\cs_knowledge_graph\data\停用词.txt'

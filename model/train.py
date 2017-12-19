@@ -1,19 +1,21 @@
 # coding=utf-8
 from gensim.models import word2vec
 
-from settings import corpus_data_dir,model_dir,baike_without_html_dir,filtered_name_dir
+from settings import corpus_data_dir,model_dir,baike_without_html_dir,filtered_name_dir,cs_baike_dict,res_dir
 
-import jieba,json
+import jieba,json,re
+
+regex = re.compile(r'\\(?![/u"])')
 
 def train():
     sentences = word2vec.Text8Corpus(corpus_data_dir)  # 加载语料
-    model = word2vec.Word2Vec(sentences, size=200)  # 默认window=5
+    model = word2vec.Word2Vec(sentences, sg = 1,window = 10)  # 默认window=5
     model.save(model_dir)
     return model
 
 if __name__ == '__main__':
     model = train()
-
+    out_f = open(res_dir,'a')
     with open(filtered_name_dir) as names:
         with open(baike_without_html_dir) as baikes:
             while(True):
@@ -21,15 +23,26 @@ if __name__ == '__main__':
                     now_name = names.next()
                     now_baike = baikes.next()
                     list1 = list(jieba.cut(now_name.split(',')[1]))
-                    str = str.replace('(', '[').replace(')', ']').replace('\'', '"').replace('" "', '","')
+                    str = now_baike.replace('(', '[').replace(')', ']').replace('\'', '"').replace('" "', '","')
+                    # print '0.',list(jieba.cut(now_name.split(',')[1]))
+                    # print '1.',str[str.index(',') + 1:]
+                    str = regex.sub(r"\\\\", str)
+                    # print '2.',str[str.index(',') + 1:]
                     list2 = json.loads(str[str.index(',') + 1:])
+                    # print '3.',list2
+                    if(list2 == []):
+                        list2 = ['']
+                    # print '4.',list(jieba.cut(list2[0]))
                     max_peo = 0
                     res_peo = ''
                     for peo in list2:
-                        now_peo = model.n_similarity(list1, list(jieba.cut(peo)))
+                        if(peo is ''):
+                            break
+                        now_peo = model.n_similarity(list1 + cs_baike_dict, list(jieba.cut(peo)))
                         if max_peo < now_peo:
                             max_peo = now_peo
                             res_peo = peo
-                            # TODO 写入文件
+                    out_f.write(res_peo)
+                    out_f.flush()
                 except StopIteration:
                     break

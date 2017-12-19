@@ -39,12 +39,14 @@ TOP_LEVEL_DOMAINS = [r'.com',r'.cn',r'.co',r'.edu',r'.gov',r'.net',r'.cc',r'.me'
 mongodb_ip = 'localhost'
 mongodb_port = 27017
 
-cs_baike_dict = {'教授':1,'计算机':1,'讲师':1,'研究员':1,'ccf':1,'CCF':1,'IEEE':1,'云计算':1,'信息':1,'院士':1,'大学':1,'研究所':1}
+cs_baike_dict_temp = {'教授':1,'计算机':1,'讲师':1,'研究员':1,'ccf':1,'CCF':1,'IEEE':1,'云计算':1,'信息':1,'院士':1,'大学':1,'研究所':1}
+cs_baike_dict = ['教授','计算机','讲师','研究员','ccf','CCF','IEEE','云计算','大数据','信息','院士','大学','研究所']
 
 name_file_dir = u'C:\\Users\LuckyGong\Documents\GitHub\cs_knowledge_graph\data\ccf专家数据\专家名（有location）.csv'
-filtered_name_dir = u'C:\\Users\LuckyGong\Documents\Github\cs_knowledge_graph\data\ccf专家数据\专家名（初步去重后）2.csv'
+filtered_name_dir = u'C:\\Users\LuckyGong\Documents\Github\cs_knowledge_graph\data\ccf专家数据\专家名（初步去重后）.csv'
 baike_dir = u'C:\\Users\LuckyGong\Documents\Github\cs_knowledge_graph\data\百科数据\百科.csv'
-baike_without_html_dir = u'C:\\Users\LuckyGong\Documents\Github\cs_knowledge_graph\data\百科数据\百科（无网页内容）.csv'
+baike_without_html_dir = u'C:\\Users\LuckyGong\Documents\Github\cs_knowledge_graph\data\百科数据\百科.csv'
 stop_word_dir = u'C:\\Users\LuckyGong\Documents\Github\cs_knowledge_graph\data\停用词.txt'
 corpus_data_dir = u'C:\\Users\LuckyGong\Documents\Github\cs_knowledge_graph\data\语料库\语料库（去除英文停词分词）.txt'
 model_dir = u'C:\\Users\LuckyGong\Documents\Github\cs_knowledge_graph\model.model'
+res_dir = ur'C:\\Users\LuckyGong\Documents\Github\cs_knowledge_graph\data\result.txt'

@@ -94,5 +94,5 @@ def process_data_from_ccf(path):
         print peo[0],peo[1],peo[2]
 
 if __name__ == '__main__':
-    # get_name_from_ccf_tc()
+    get_name_from_ccf_tc()
     process_data_from_ccf(name_file_dir)

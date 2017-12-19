@@ -1,7 +1,7 @@
 # coding=utf-8
 
 
-from settings import useragents,filtered_name_dir,baike_dir,baike_without_html_dir
+from settings import useragents,filtered_name_dir,baike_dir
 from lxml import etree
 from random import choice
 from bs4 import BeautifulSoup
@@ -67,16 +67,19 @@ def get_page_from_baike(name):
 
 if __name__ == '__main__':
     # 百科抓取
-    # content = []
-    # with open(filtered_name_dir) as f:
-    #     output_file = open(baike_dir, 'a')
-    #     for index,line in enumerate(f):
-    #         baike_now = get_page_from_baike(line.split(',')[0])
-    #         output_file.write(line.split(',')[0] + ',' + str(baike_now).replace(',','').replace('\n','') + '\n')
-    #         output_file.flush()
-    #     output_file.close()
+    content = []
+    with open(filtered_name_dir) as f:
+        output_file = open(baike_dir, 'a')
+        for index,line in enumerate(f):
+            baike_now = get_page_from_baike(line.split(',')[0])
+            res = line.split(',')[0] + ','
+            for baike_str in baike_now:
+                res += baike_str.replace('\n','').replace(',','') + ','
+            output_file.write(res + '\r\n')
+            output_file.flush()
+        output_file.close()
 
-    # 合并
+    # # 合并
     # f1 = open(u'C:\\Users\LuckyGong\Documents\Github\cs_knowledge_graph\data\百科1.csv')
     # f2 = open(u'C:\\Users\LuckyGong\Documents\Github\cs_knowledge_graph\data\百科2.csv')
     # f = open(u'C:\\Users\LuckyGong\Documents\Github\cs_knowledge_graph\data\百科.csv','w')
@@ -87,8 +90,8 @@ if __name__ == '__main__':
     #     f.write(line)
     # f2.close()
     # f.close()
-
-    # 去除人名
+    #
+    # # 去除人名
     # in_f = open(u'C:\\Users\LuckyGong\Documents\Github\cs_knowledge_graph\data\百科.csv')
     # out_f = open(u'C:\\Users\LuckyGong\Documents\Github\cs_knowledge_graph\data\百科（无名字）.csv','w')
     # for line in in_f:
@@ -96,8 +99,3 @@ if __name__ == '__main__':
     #     out_f.write(line_new)
     # in_f.close()
     # out_f.close()
-
-    # 构建语料
-    in_f = open(u'C:\\Users\LuckyGong\Documents\Github\cs_knowledge_graph\data\百科.csv')
-    out_f = open(u'C:\\Users\LuckyGong\Documents\Github\cs_knowledge_graph\data\百科（无名字）.csv','w')
-    pass

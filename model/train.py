@@ -1,7 +1,7 @@
 # coding=utf-8
 from gensim.models import word2vec
 
-from settings import corpus_data_dir,model_dir,baike_without_html_dir,filtered_name_dir,cs_baike_dict,res_dir
+from settings import corpus_data_dir,model_dir,baike_without_html_dir,filtered_name_dir,cs_baike_dict,res_dir,baike_dir
 
 import jieba,json,re
 
@@ -28,7 +28,11 @@ if __name__ == '__main__':
                     # print '1.',str[str.index(',') + 1:]
                     str = regex.sub(r"\\\\", str)
                     # print '2.',str[str.index(',') + 1:]
-                    list2 = json.loads(str[str.index(',') + 1:])
+                    try:
+                        list2 = json.loads(str[str.index(',') + 1:])
+                    except:
+                        print now_name.split(',')[0],'解码错误'
+                        list2 = ['']
                     # print '3.',list2
                     if(list2 == []):
                         list2 = ['']

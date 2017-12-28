@@ -13,7 +13,6 @@ with open(baike_dir) as baike:
     for line in baike:
         now = line[line.find(',') + 1:]
 
-        print unicode(line)
         sentence_seged = jieba.cut(line.strip())
         outstr = ''
         for word in sentence_seged:
@@ -22,7 +21,7 @@ with open(baike_dir) as baike:
                 if word != '\t':
                     outstr += word
                     outstr += " "
-        out_f.write((outstr + '\r\n').encode('utf-8'))
+        out_f.write(outstr.encode('utf-8'))
 #         str = line.strip().replace('(', '[').replace(')', ']').replace('\'', '"').replace('" "', '","').replace('\' \'', '","')
 #         str = regex.sub(r"\\\\", str)
 #         print str
